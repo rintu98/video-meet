@@ -1,7 +1,13 @@
+
 .meetVideoContainer {
     position: relative;
     height: 100vh;
     background: rgb(1, 5, 50);
+    /* overflow: hidden; */
+}
+
+.lobby h2 {
+    margin: 10px;
 }
 
 .meetUserVideo {
@@ -11,6 +17,7 @@
     width: auto;
     left: 0;
     border-radius: 20px;
+    z-index: 1;
 }
 
 .buttonContainers {
@@ -18,6 +25,7 @@
     width: 100vw;
     bottom: 0;
     text-align: center;
+    z-index: 2;
 }
 
 .buttonContainers svg {
@@ -25,15 +33,15 @@
 }
 
 .conferenceView {
-    display: flex;
-    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px;
+    padding: 10px;
 }
 
 .conferenceView video {
-    width: 40vw;
-    height: 20vh;
-    min-width: 30vw;
+    width: 100%;
+    height: auto;
     border-radius: 10px;
 }
 
@@ -43,15 +51,71 @@
     width: 30vw;
     right: 0;
     background: white;
-    padding-inline: 20px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
 }
 
 .chatContainer {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    overflow: hidden;
 }
 
-chattingArea {
-    position: absolute;
+.chatContainer h3 {
+    margin: 10px 0 20px 0;
+    justify-content: center;
+}
+ 
+.chattingDisplay {
+    flex-grow: 1; /* This allows the chat display area to take up available space */
+    overflow-y: auto; /* Enables scrolling when the chat is too long */
+    margin: 10px 10px 10px 20px; /* Optional: adds some padding around the chat messages */
+    background-color: rgb(248, 246, 244); /* Optional: background color for chat area */
+  }
+
+
+.chattingArea {
+    position: sticky;
     bottom: 0;
+    width: 100%;
+    background: white;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    padding: 10px; /* Add some padding for better visuals */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better separation */
+}
+
+.customTextField {
+    flex: 1; /* Take up available space */
+    margin-right: 10px; /* Space between the TextField and Button */
+}
+
+.chatHead {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 10px;
+}
+
+.chatHead  h3 {
+    margin:auto;
+}
+
+  
+@media(min-width: 300px) and (max-width: 600px) {
+    .video {
+        width: 60%;
+    }
+    .conferenceView {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    .chatRoom {
+        height: 90vh;
+        width: 100vw;
+    }
+    .buttonContainers svg {
+        font-size: 1.5rem;
+    }
 }

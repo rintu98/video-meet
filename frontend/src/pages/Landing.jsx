@@ -1,6 +1,7 @@
 import React from 'react';
 import "../App.css";
 import { Link, useNavigate } from 'react-router-dom';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 
 export default function LandingPage() {
@@ -11,7 +12,8 @@ export default function LandingPage() {
         <div className='landingPageContainer'>
             <nav>
                 <div className='navHeader'>
-                    <h2>Apan Video Call</h2>
+                    <VideocamIcon style={{fontSize:"2rem"}}/>
+                    <h1>Video Meet</h1>
                 </div>
                 <div className='navlist'>
                     <p onClick={() => {
@@ -25,14 +27,14 @@ export default function LandingPage() {
 
             <div className="landingMainContainer">
                 <div>
-                    <h1><span style={{color: "#FF9839"}}>Connect</span> with your loved Ones</h1>
-                    <p>Cover a distance by Apan Video Call</p>
+                    <h1><span style={{color: "#FF9839"}}>Connect</span> with people</h1>
+                    <p>Cover a distance by Video Meet</p>
                     <div role='button'>
                         <Link to={"/home"}>Get Started</Link>
                     </div>
                 </div>
                 <div>
-                    <img src='/mobile.png' alt='mobile' />
+                    <img src='/Conference.jpg' alt='mobile' />
                 </div>
             </div>
         </div>

@@ -24,14 +24,15 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (request.status === httpStatus.CREATED) {
-        return request.data.messsage;
+        localStorage.setItem("email", email);
+        return await handleLogin(username, password, email);
       }
     } catch (err) {
       throw err;
     }
   };
 
-  const handleLogin = async (username, password) => {
+  const handleLogin = async (username, password, email) => {
     try {
       let request = await client.post("/login", {
         username: username,
@@ -39,11 +40,24 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (request.status === httpStatus.OK) {
-        localStorage.setItem("token", request.data.token);
-        console.log("log in successful");
-        router("/home");
+
+        const token = request.data.token;
+        const recivedUsername = request.data.username;
+        const email = request.data.email;
+
+        if(token && recivedUsername && email) {
+          localStorage.setItem("email", request.data.email);
+          localStorage.setItem("token", request.data.token);
+          localStorage.setItem("username", request.data.username);
+          console.log("log in successful");
+          router("/home");
+        } else {
+          console.log("Token or username is undefined in the server response");
+        }
+        
       }
     } catch (err) {
+      console.log("Login error");
       throw err;
     }
   };

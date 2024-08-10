@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import NavBar from "./NavBar";
 
 export default function History() {
   const { getHistoryOfUser } = useContext(AuthContext);
@@ -40,11 +38,13 @@ export default function History() {
 
   return (
     <div>
+      <NavBar />
       <IconButton
         onClick={() => {
           routeTo("/home");
         }}>
         <HomeIcon />
+        <p style={{fontSize:"1.2rem", marginLeft:"10px"}}>back to home</p>
       </IconButton>
       {meetings.length !== 0  ? meetings.map((e, i) => {
         return (

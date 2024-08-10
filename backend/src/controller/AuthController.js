@@ -25,13 +25,17 @@ const login = async (req, res) => {
             let token = crypto.randomBytes(20).toString("hex");
 
             user.token = token;
+            
             await user.save();
-            return res.status(httpStatus.OK).json({ token: token })
+
+            console.log("Login successful, returning token and username");
+            return res.status(httpStatus.OK).json({ token: token , username: user.username, email: user.email})
         } else {
             return res.status(httpStatus.UNAUTHORIZED).json({ message: "Invalid Username or password" })
         }
 
     } catch (e) {
+        console.error(`Something went wrong: ${e}`);
         return res.status(500).json({ message: `Something went wrong ${e}` })
     }
 }
