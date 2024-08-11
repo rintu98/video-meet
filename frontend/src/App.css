@@ -226,6 +226,12 @@ html, body {
 }
 
 @media(min-width: 300px) and (max-width: 600px) {
+
+  .navBar {
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+  }
+
   .username {
     visibility: hidden;
   }
@@ -242,15 +248,25 @@ html, body {
 
   .landingPageContainer nav {
     padding-inline: 1rem;
+    padding-block: 0.5rem;
+    align-items: center;
   }
+
+  .landingPageContainer nav .navHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
 
   .landingPageContainer nav h1 {
     font-size: 1rem;
   }
 
   .landingPageContainer nav .navlist p {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-weight: bold;
+    padding-top: 0.3rem;
   }
 
   .landingPageContainer nav .navlist  div[role='button'] a {
