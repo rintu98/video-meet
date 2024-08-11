@@ -24,15 +24,14 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (request.status === httpStatus.CREATED) {
-        localStorage.setItem("email", email);
-        return await handleLogin(username, password, email);
+        return await handleLogin(username, password);
       }
     } catch (err) {
       throw err;
     }
   };
 
-  const handleLogin = async (username, password, email) => {
+  const handleLogin = async (username, password) => {
     try {
       let request = await client.post("/login", {
         username: username,
@@ -45,7 +44,7 @@ export const AuthProvider = ({ children }) => {
         const recivedUsername = request.data.username;
         const email = request.data.email;
 
-        if(token && recivedUsername && email) {
+        if(token && recivedUsername && email ) {
           localStorage.setItem("email", request.data.email);
           localStorage.setItem("token", request.data.token);
           localStorage.setItem("username", request.data.username);
