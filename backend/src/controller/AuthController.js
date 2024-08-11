@@ -9,7 +9,7 @@ const login = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(400).json({ message: "Please Provide" })
+        return res.status(400).json({ message: "Enter the username and password" })
     }
 
     try {
@@ -28,7 +28,6 @@ const login = async (req, res) => {
             
             await user.save();
 
-            console.log("Login successful, returning token and username");
             return res.status(httpStatus.OK).json({ token: token , username: user.username, email: user.email})
         } else {
             return res.status(httpStatus.UNAUTHORIZED).json({ message: "Invalid Username or password" })
