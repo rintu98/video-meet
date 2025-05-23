@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 import { User } from "../model/UserModel.js";
 import bcrypt, { hash } from "bcrypt"
+import nodemailer from "nodemailer"
 
 import crypto from "crypto"
 import { Meeting } from "../model/meetingModel.js";
@@ -11,7 +12,6 @@ const login = async (req, res) => {
     if (!username || !password) {
         return res.status(400).json({ message: "Enter the username and password" })
     }
-
     try {
         const user = await User.findOne({ username });
         if (!user) {
@@ -100,5 +100,63 @@ const addToHistory = async (req, res) => {
     }
 }
 
+const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+  
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+  
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // valid for 10 mins
+  
+    user.otp = otp;
+    user.otpExpiry = otpExpiry;
+    await user.save();
+  
+    // Send OTP to email
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+  
+    const mailOptions = {
+      from: `"No Reply" <${process.env.SMTP_EMAIL}>`,
+      to: email,
+      subject: "Password Reset OTP",
+      text: `Your OTP is ${otp}. It is valid for 10 minutes.`,
+    };
+  
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          return res.status(500).json({ message: "Failed to send OTP", error: err });
+        }
+        res.status(200).json({ message: "OTP sent successfully" });
+      });
+      
+  };
+  
+  // Step 2: Verify OTP and Reset Password
+  const verifyOtp = async (req, res) => {
+    const { email, otp, newPassword } = req.body;
+    const user = await User.findOne({ email });
+  
+    if (!user) return res.status(404).json({ message: "User not found" });
+  
+    if (user.otp !== otp || user.otpExpiry < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+  
+    user.password = await bcrypt.hash(newPassword, 10);
+    user.otp = null;
+    user.otpExpiry = null;
+  
+    await user.save();
+  
+    res.status(200).json({ message: "Password reset successful" });
+  };
 
-export { login, register, getUserHistory, addToHistory }
+
+export { login, register, getUserHistory, addToHistory, forgotPassword, verifyOtp }

@@ -16,6 +16,12 @@ const userScheme = new Schema({
         },
         token: { 
           type: String 
+        },
+        otp: {
+          type: String
+        },
+        otpExpiry: {
+          type: Date
         }
     }
 )
