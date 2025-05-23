@@ -479,9 +479,10 @@ export default function VideoMeetComponent() {
 
   return (
     <div>
+      <NavBar />
       {askForUsername === true ? (
         <div className={styles.lobby}>
-          <NavBar />
+          
           <h2>Enter into lobby</h2>
           <TextField
             id="outlined-basic"

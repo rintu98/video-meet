@@ -1,43 +1,56 @@
-import React from 'react';
+import React from "react";
 import "../App.css";
-import { Link, useNavigate } from 'react-router-dom';
-import VideocamIcon from '@mui/icons-material/Videocam';
-
+import { Link, useNavigate } from "react-router-dom";
+import VideocamIcon from "@mui/icons-material/Videocam";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
 
-    const router = useNavigate();
+   const handleGoogleLogin = () => {
+    window.open("http://localhost:5000/api/auth/google", "_self");
+  };
 
-    return ( 
-        <div className='landingPageContainer'>
-            <nav>
-                <div className='navHeader'>
-                    <VideocamIcon style={{fontSize:"2rem"}}/>
-                    <h1>Video Meet</h1>
-                </div>
-                <div className='navlist'>
-                    <p onClick={() => {
-                        router("/q23asc")
-                    }}>Join as Guest</p>
-                    <div role='button'>
-                        <Link to={"/auth"}>Register/Login</Link>
-                    </div>
-                </div>
-            </nav>
+  return (
+    <div className="betterLandingPage">
+      <Link to="/">
+        <img src="/logo.svg" alt="Video Meet Logo" style={{ height: "60px" }} />
+      </Link>
 
-            <div className="landingMainContainer">
-                <div>
-                    <h1><span style={{color: "#FF9839"}}>Connect</span> with people</h1>
-                    <p>Cover a distance by Video Meet</p>
-                    <div role='button'>
-                        <Link to={"/home"}>Get Started</Link>
-                    </div>
-                </div>
-                <div>
-                    <img src='/Conference.jpg' alt='mobile' />
-                </div>
-            </div>
+      <div className="leftPane">
+        <h1>
+          Connect Instantly.
+          <br />
+          Meet Securely.
+        </h1>
+        <p>One-click to join or host a conference</p>
+        <div className="buttonGroup">
+          <button onClick={() => navigate("/meet/q23asc")}>
+            Join Conference
+          </button>
+          <button>Download App</button>
         </div>
-     );
-}
+      </div>
 
+      <div className="rightPane">
+        <div className="loginCard">
+          <div className="logoHeader">
+            <VideocamIcon style={{ fontSize: "2rem", color: "#1c5695" }} />
+            <h2>Video Meet</h2>
+          </div>
+          <h3>Sign In</h3>
+          <p>Access your meetings securely</p>
+          <button className="emailLogin">
+            <Link to="/auth" style={{ textDecoration: "none", color: "white" }}>
+              Sign in with Email
+            </Link>
+          </button>
+          <button onClick={handleGoogleLogin} className="parichayLogin">
+            <Link to="/auth" style={{ textDecoration: "none", color: "white" }}>
+              Sign In With Google
+            </Link>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

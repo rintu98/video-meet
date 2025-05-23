@@ -2,21 +2,24 @@ import React, { useContext, useState } from "react";
 import withAuth from "../utils/WithAuth";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Snackbar, Alert } from "@mui/material";
 import { AuthContext } from "../contexts/AuthContext";
 import NavBar from "./NavBar";
 
 function HomeComponent() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [meetingCode, setMeetingCode] = useState("");
-
   const { addToUserHistory } = useContext(AuthContext);
 
-  
+  const [flashOpen, setFlashOpen] = useState(false);
 
-  let handleJoinVideoCall = async () => {
+  const handleJoinVideoCall = async () => {
+    if (!meetingCode.trim()) return;
+    setFlashOpen(true); // show flash
     await addToUserHistory(meetingCode);
-    navigate(`/${meetingCode}`);
+    setTimeout(() => {
+      navigate(`/meet/${meetingCode}`);
+    }, 1000); // small delay for better feel
   };
 
   return (
@@ -25,27 +28,53 @@ function HomeComponent() {
 
       <div className="meetContainer">
         <div className="leftPanel">
-          <div>
-            <h2>Providing video call just like quality education</h2>
-            <div style={{ display: "flex", gap: "10px" }}>
-              <TextField
-                onChange={(e) => setMeetingCode(e.target.value)}
-                id="outlined-basic"
-                label="Meeting Code"
-                variant="outlined"
-                className="meet-code"
-                
-              />
-              <Button onClick={handleJoinVideoCall} variant="contained">
-                Join
-              </Button>
-            </div>
+          <h2>
+            Seamless video calls,
+            <br /> reimagined for everyone
+          </h2>
+          <div className="joinSection">
+            <TextField
+              onChange={(e) => setMeetingCode(e.target.value)}
+              id="outlined-basic"
+              label="Enter Meeting Code"
+              variant="outlined"
+              size="medium"
+            />
+            <Button
+              onClick={handleJoinVideoCall}
+              variant="contained"
+              size="large"
+              className="pulse-button"
+              sx={{ bgcolor: "#2C6C73", "&:hover": { bgcolor: "#245058" } }}
+            >
+              Join
+            </Button>
           </div>
         </div>
+
         <div className="rightPanel">
-          <img srcSet="/phone.svg" alt="" />
+          <img
+            src="undraw_calling.svg"
+            alt="Video call illustration"
+            className="meetImage"
+          />
         </div>
       </div>
+
+      {/* Flash Message Snackbar */}
+      <Snackbar
+        open={flashOpen}
+        autoHideDuration={2000}
+        onClose={() => setFlashOpen(false)}
+      >
+        <Alert
+          onClose={() => setFlashOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Joining meeting...
+        </Alert>
+      </Snackbar>
     </>
   );
 }

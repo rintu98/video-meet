@@ -1,91 +1,71 @@
-import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { IconButton } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
 import RestoreIcon from "@mui/icons-material/Restore";
-import LogoutIcon from '@mui/icons-material/Logout';
-import VideocamIcon from '@mui/icons-material/Videocam';
+import LogoutIcon from "@mui/icons-material/Logout";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import useClickOutside from "../hooks/useClickOutside"; // ✅ IMPORT OUR HOOK
 
 export default function NavBar() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
-    let navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const profileRef = useRef(); // ✅ Create a ref
 
-    useEffect(() => {
-        const storedUsername = localStorage.getItem("username");
-        if (storedUsername) {
-          setUsername(storedUsername);
-        }else {
-          setUsername("anonymous");
-        }
-      }, []);
-    
-      useEffect(() => {
-        const storedEmail = localStorage.getItem("email");
-        if (storedEmail) {
-          setEmail(storedEmail);
-        } else {
-          setEmail("anonymous@gmail.com");
-        }
-      }, []);
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username") || "Anonymous";
+    const storedEmail = localStorage.getItem("email") || "anonymous@gmail.com";
+    setUsername(storedUsername);
+    setEmail(storedEmail);
+  }, []);
 
-      const handleProfileClick = (index) => {
-        setIsProfileDropdownOpen(!isProfileDropdownOpen);
-      };
-    
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownOpen((prev) => !prev);
+  };
 
-    return (
-        <>
-            <div className="navBar">
-        <div onClick={() => {
-          navigate("/");
-        }} className="back-to-home">
-          <VideocamIcon style={{fontSize:"2rem"}}/>
-          <h3> Video Meet</h3>
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    navigate("/auth");
+  };
+
+  useClickOutside(profileRef, () => setIsProfileDropdownOpen(false)); // ✅ USE OUR HOOK
+
+  return (
+    <>
+      <div className="navBar">
+        <div className="brand" onClick={() => navigate("/home")}>
+          <VideocamIcon sx={{ fontSize: "2rem", mr: 1 }} />
+          <h3>Video Meet</h3>
         </div>
 
-
-        <div className="profile" onClick={handleProfileClick}>
+        <div className="profile" onClick={toggleProfileDropdown} ref={profileRef}>
           <div className="avatar">{username.charAt(0).toUpperCase()}</div>
           <p className="username">{username}</p>
           {isProfileDropdownOpen && (
             <div className="profile-dropdown">
               <div className="logo"><PersonIcon /></div>
-              <p>{username}</p>
-              <div className="user">
-                <p>{email}</p>
-              </div>
+              <p className="profile-name">{username}</p>
+              <div className="user-email">{email}</div>
               <hr />
-              <div style={{paddingTop:"20px"}}>
-              <IconButton
-                  onClick={() => {
-                    navigate("/history");
-                  }}   style={{color:"white"}}
-                >
-                  <RestoreIcon/>
-                  <h5>History</h5>
+              <div className="profile-actions">
+                <IconButton onClick={() => navigate("/history")} color="primary">
+                  <RestoreIcon />
+                  <span>History</span>
                 </IconButton>
-                  <br />
-              <IconButton 
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("username");
-                  localStorage.removeItem("email");
-                  navigate("/auth");
-                }} style={{color:"white"}}
-              >
-                <LogoutIcon/>
-                <h5>Log out</h5>
-              </IconButton>
+                <IconButton onClick={handleLogout} color="error">
+                  <LogoutIcon />
+                  <span>Logout</span>
+                </IconButton>
               </div>
-                              
             </div>
           )}
         </div>
       </div>
-
-        </>
-    )
+    </>
+  );
 }

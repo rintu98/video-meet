@@ -2,249 +2,431 @@ html, body {
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-/* londingPage */
+/* landingPage */
 
-.landingPageContainer {
+.betterLandingPage {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(175deg in oklab, #1c5695 50%, #cadcf0, #94c6e7);              
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #e6f0fa, #ffffff);
+}
+
+.leftPane, .rightPane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.leftPane h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1c5695;
+  text-align: center;
+}
+
+.leftPane p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+}
+
+.buttonGroup {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.buttonGroup button {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buttonGroup button:first-child {
+  background-color: #1c5695;
   color: white;
 }
 
-.landingPageContainer nav {
-  padding-inline: 2rem;
-  padding-block: 1rem;
+.buttonGroup button:first-child:hover {
+  background-color: #15477c;
+}
+
+.buttonGroup button:last-child {
+  background-color: #ff9839;
+  color: white;
+}
+
+.buttonGroup button:last-child:hover {
+  background-color: #e67e22;
+}
+
+.rightPane {
+  background-color: #f8f9fa;
+}
+
+.loginCard {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+}
+
+.logoHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: #dd8d22
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.landingPageContainer nav h1 {
-  font-size: 1.2rem;
+.loginCard h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.8rem;
 }
 
-.landingPageContainer nav .navlist {
-  display: flex;
-  gap: 1.6rem;
+.loginCard p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.emailLogin, .parichayLogin {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
-.landingPageContainer nav .navlist p {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.landingPageContainer nav .navlist  div[role='button'] a {
-  border: 1px solid #dd8d22;
-  background-color: rgb(8, 132, 249);
-  text-decoration: none;
+.emailLogin {
+  background-color: #1c5695;
   color: white;
-  padding: 0.75rem;
-  border-radius: 12px;
-  font-weight: 600;
 }
 
-.landingMainContainer {
-  display: flex;
-  justify-content: space-between;
-  padding-inline: 3rem;
-  height: 80vh;
-  align-items: center;
- 
-}
-
-.landingMainContainer > div:nth-child(1) {
-  font-size: 1.5rem;
-}
-
-.landingMainContainer > div:nth-child(1)  div[role='button']{
-  background: #D97500;
-  width: fit-content;
-  padding: 1rem;
-  border-radius: 20px;
-  margin-top: 1.9rem;
-}
-
-.landingMainContainer > div:nth-child(1)  div[role='button'] a {
-  text-decoration: none;
+.parichayLogin {
+  background-color: #7b2d5c;
   color: white;
-  font-size: 1.7rem;
-
 }
 
-.landingMainContainer > div:nth-child(2) img {
-  height: 40vh;
-  width: auto;
+@media (min-width: 300px) and (max-width: 600px) {
+  .betterLandingPage {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
 
+  .leftPane, .rightPane {
+    flex: none;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .leftPane h1 {
+    font-size: 2rem;
+  }
+
+  .leftPane p {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .buttonGroup button {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+  }
+
+  .rightPane {
+    background-color: transparent;
+    margin-top: 2rem;
+  }
+
+  .loginCard {
+    width: 100%;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .logoHeader {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .logoHeader h1 {
+    font-size: 1.5rem;
+  }
 }
 
-/* Navbar */
 
+
+/* NavBar Styling */
 .navBar {
-  background-color: #000000;
+  background: linear-gradient(90deg, #2C6C73, #81BAC4);
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 2rem;
-  padding-block: 1.6rem;
-  color: white;
-  box-sizing: border-box;
+  padding: 1.2rem 2rem;
+  color: #fff;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 100;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.brand h3 {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
 
 .profile {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  margin-left: 20px;
+  gap: 0.7rem;
+  cursor: pointer;
+  position: relative;
 }
 
-.profile .avatar {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  position: relative;
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  color: #2C6C73;
+  font-weight: 700;
   font-size: 1.2rem;
-  font-weight: 500;
-  color: black;
+  border-radius: 50%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100%;
-  text-align: center;
-  display: flex;
-  background: white;
-  margin-right: 8px;
 }
 
-
-.profile:hover {
-  cursor: pointer;
+.username {
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
-
 
 .profile:hover .username {
-  cursor: pointer;
-  color: orange;
+  color: #f8b400;
 }
 
 .profile-dropdown {
   width: 250px;
   position: absolute;
-  padding-block: 20px;
+  padding: 20px;
   right: 0;
-  top: 13.5%;
-  background-color: rgba(0, 0, 0, 0.648);
+  top: 80px; /* 🔥 Adjusted for better look */
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
   border: 1px solid #ccc;
   z-index: 1000;
-  box-shadow: -10px 5px 5px rgba(236, 230, 230, 0.442);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
   text-align: center;
   box-sizing: border-box;
+
+  /* 🎬 Animation styles */
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideDown 0.4s ease-out forwards;
 }
 
+/* 🎬 Keyframes for dropdown */
+@keyframes slideDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-10px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
 
 .logo {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto;
-  position: relative;
-  font-size: 0.7rem;
-  color: black;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 10px;
+  background-color: #2C6C73;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  border-radius: 100%;
-  display: flex;
-  background: white;
 }
 
-.user {
-  margin-bottom: 1.5rem;
-}
-
-.profile-dropdown h5 {
-  font-size: 1rem;
-}
-
-/* HomePage */
-.meetContainer {
-  position: relative;
-  display: flex;
-  padding-inline: 20px;
-  height: 86.4vh;
-  top: 20%;
-  gap: 10vw;
-  justify-content: center;
-  background: linear-gradient(180deg, #81BAC4, #FAC792, #2C6C73);
-}
-
-.leftPanel {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.leftPanel h2 {
-  margin-bottom: 1.5rem;
-}
-
-.rightPanel {
-  display: flex;
-  align-items: center;
-}
-
-.rightPanel > img {
-  width: 30vw;
-  height: auto;
-}
-
-.video-meet h2 {
-  padding: 20px;
-}
-
-
-.back-to-home:hover {
-  cursor: pointer;
-}
-
-
-.char-avatar {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  position: relative;
+.profile-name {
   font-size: 1.2rem;
-  font-weight: 500;
-  color: rgb(255, 255, 255);
-  justify-content: center;
-  align-items: center;
-  border-radius: 100%;
-  text-align: center;
-  display: flex;
-  background: rgb(45, 134, 223);
-  margin-right: 8px;
+  font-weight: bold;
+  margin-top: 0.5rem;
 }
 
-@media(min-width: 300px) and (max-width: 600px) {
+.user-email {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
 
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-actions span {
+  margin-left: 5px;
+  font-size: 1rem;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
   .navBar {
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
+    padding: 1rem;
   }
 
   .username {
-    visibility: hidden;
-  }
-
-  .profile {
-    position: absolute;
-    right: 0;
+    display: none;
   }
 
   .profile-dropdown {
-    position:fixed;
     width: 200px;
   }
+}
+
+
+/* HomePage */
+.meetContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
+  padding: 4rem 2rem;
+  min-height: 90vh;
+  background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec, #ffffff);
+}
+
+.leftPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  animation: fadeUp 1s ease;
+}
+
+.leftPanel h2 {
+  font-size: 2.5rem;
+  color: #2C3E50;
+  line-height: 1.2;
+}
+
+.joinSection {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rightPanel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightPanel .meetImage {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeUp 1.2s ease;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(44, 108, 115, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(44, 108, 115, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(44, 108, 115, 0);
+  }
+}
+
+.pulse-button {
+  animation: pulse 2s infinite;
+  animation-delay: 1s;
+  border-radius: 8px;
+}
+
+
+/* Responsive */
+@media(max-width: 768px) {
+  .meetContainer {
+    flex-direction: column;
+    padding-top: 2rem;
+  }
+
+  .leftPanel h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .joinSection {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rightPanel .meetImage {
+    width: 70%;
+  }
+}
+
+@media(min-width: 300px) and (max-width: 600px) {
 
   .landingPageContainer nav {
     padding-inline: 1rem;
@@ -304,25 +486,4 @@ html, body {
     width: auto;
   }
 
-  .meetContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .leftPanel h2 {
-    margin-bottom: 1.5rem;
-  }
-
-  .leftPanel .meet-code {
-    width: 90%;
-  }
-
-  .rightPanel > img {
-    width: 70vw;
-    height: auto;
-    margin-bottom: 30px;
-  }
 }
-
-
